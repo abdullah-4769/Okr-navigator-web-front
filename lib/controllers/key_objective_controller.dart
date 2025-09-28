@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'journey_controller.dart';
 
 class KeyObjectiveController extends GetxController {
   // Store selected objective index

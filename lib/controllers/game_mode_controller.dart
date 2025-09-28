@@ -5,67 +5,67 @@ import 'package:get/get.dart';
 class GameModeController extends GetxController {
   final PageController pageController = PageController(viewportFraction: 0.8);
   final RxInt selectedIndex = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-    // Instead of jumpToPage here, wait for the first frame
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (pageController.hasClients) {
-        pageController.jumpToPage(0); // or whatever index you want
-      }
-    });
 
-    pageController.addListener(_handlePageChange);
-  }
-
-  void resetGameMode() {
-    selectedIndex.value = 0;
-    selectedMode.value = 'solo';
-    if (pageController.hasClients) {
-      pageController.jumpToPage(0);
-    }
-  }
-
-  /// Selected mode for PricingScreen (solo, team, campaign)
+  /// Selected mode for PricingScreen ('solo', 'team', 'campaign')
   final RxString selectedMode = 'solo'.obs;
 
-  /// Game modes list with proper asset paths and additional data
+  /// Reactive PNG & SVG paths for PricingScreen
+  RxString modePng = 'assets/images/solo11.png'.obs;
+  RxString modeSvg = 'assets/images/solo.svg'.obs;
+
+  /// Game modes list
   final List<Map<String, dynamic>> gameModes = [
     {
       'title': 'Solo'.tr,
       'subtitle': 'Play alone at your own pace'.tr,
-      'icon': 'assets/images/solo.svg',
+      'icon': 'assets/images/solo11.png',
       'color': const Color(0xFF4ECDC4),
-      'description':
-      'Challenge yourself and improve your skills individually'.tr,
+      'description': 'Challenge yourself and improve your skills individually'.tr,
       'mode': 'solo',
+      'svg': 'assets/images/solo.svg',
     },
     {
       'title': 'Team'.tr,
       'subtitle': 'Collaborate with others'.tr,
-      'icon': 'assets/images/team.svg',
+      'icon': 'assets/images/team11.png',
       'color': const Color(0xFFFF6B6B),
       'description': 'Work together with your team to achieve common goals'.tr,
       'mode': 'team',
+      'svg': 'assets/images/team.svg',
     },
     {
       'title': 'Campaign'.tr,
       'subtitle': 'Complete missions and progress'.tr,
-      'icon': 'assets/images/campaign.svg',
+      'icon': 'assets/images/campaign11.png',
       'color': const Color(0xFF45B7D1),
-      'description':
-      'Engage in structured missions with progressive difficulty'.tr,
+      'description': 'Engage in structured missions with progressive difficulty'.tr,
       'mode': 'campaign',
+      'svg': 'assets/images/campaign.svg',
     },
   ];
 
-
+  @override
+  void onInit() {
+    super.onInit();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (pageController.hasClients) pageController.jumpToPage(0);
+    });
+    pageController.addListener(_handlePageChange);
+  }
 
   @override
   void onClose() {
     pageController.removeListener(_handlePageChange);
     pageController.dispose();
     super.onClose();
+  }
+
+  void resetGameMode() {
+    selectedIndex.value = 0;
+    selectedMode.value = 'solo';
+    modePng.value = 'assets/images/solo11.png';
+    modeSvg.value = 'assets/images/solo.svg';
+    if (pageController.hasClients) pageController.jumpToPage(0);
   }
 
   void _handlePageChange() {
@@ -103,23 +103,19 @@ class GameModeController extends GetxController {
     }
   }
 
-  /// Navigate to Pricing screen and store selected mode
+  /// Navigate to Pricing screen and update selected mode
   void navigateToPricingScreen() {
     final selectedGameMode = gameModes[selectedIndex.value]['mode'] as String;
     selectedMode.value = selectedGameMode;
+
+    // Update reactive PNG & SVG
+    modePng.value = gameModes[selectedIndex.value]['icon'] as String;
+    modeSvg.value = gameModes[selectedIndex.value]['svg'] as String;
+
     Get.toNamed(AppRoutes.pricingScreen);
   }
 
-  /// Get relevant SVG asset for PricingScreen
-  String get modeSvg {
-    switch (selectedMode.value) {
-      case 'team':
-        return 'assets/images/team.svg';
-      case 'campaign':
-        return 'assets/images/campaign.svg'; // ✅ fixed spelling
-      case 'solo':
-      default:
-        return 'assets/images/solo.svg';
-    }
-  }
+  /// Getters for current PNG & SVG (reactive)
+  String get currentModePng => modePng.value;
+  String get currentModeSvg => modeSvg.value;
 }

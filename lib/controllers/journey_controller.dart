@@ -6,9 +6,9 @@ class JourneyController extends GetxController {
 
   /// Journey steps
   final List<String> steps = [
-    'Select Strategy'.tr,
-    'Select Objective'.tr,
-    'Select Key Results'.tr,
+    'Strategy'.tr,
+    'Objective'.tr,
+    'Key Results'.tr,
     'Suggest Initiatives'.tr,
     'Complete'.tr,
   ];

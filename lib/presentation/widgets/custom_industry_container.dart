@@ -58,194 +58,296 @@ class CustomIndustryContainer extends StatelessWidget {
 
     final media = MediaQuery.of(context);
     final isLandscape = media.orientation == Orientation.landscape;
-    final maxWidth = media.size.width;
+    final screenWidth = media.size.width;
+    final screenHeight = media.size.height;
 
-    return OrientationBuilder(
-      builder: (context, orientation) => GestureDetector(
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 250),
-          margin: EdgeInsets.only(bottom: AppDimensions.d8.h),
-          padding: EdgeInsets.symmetric(
-            horizontal: AppDimensions.d16.w,
-            vertical: AppDimensions.d18.h,
-          ),
-          constraints: BoxConstraints(
-            maxWidth: maxWidth,
-            minWidth: maxWidth * 0.85,
-          ),
-          decoration: BoxDecoration(
-            color: AppColors.lightGrey,
-            borderRadius: BorderRadius.circular(AppDimensions.d16.r),
-            border: Border.all(
-              color: isSelected
-                  ? AppColors.primaryRed
-                  : AppColors.grey.withValues(alpha: 0.3),
-              width: isSelected ? 2 : 1,
+    // Determine device type for responsive design
+    bool isMobile = screenWidth < 768;
+    bool isTablet = screenWidth >= 768 && screenWidth < 1024;
+    bool isDesktop = screenWidth >= 1024;
+
+    // Responsive dimensions based on screen size
+    double getResponsiveDimension(double mobile, double tablet, double desktop) {
+      if (isMobile) return mobile;
+      if (isTablet) return tablet;
+      return desktop;
+    }
+
+    // Responsive font sizes
+    double titleFontSize = getResponsiveDimension(
+        isLandscape ? 14.0 : 16.0, // Mobile
+        18.0, // Tablet
+        16.0  // Desktop (smaller for web)
+    );
+
+    double descriptionFontSize = getResponsiveDimension(
+        12.0, // Mobile
+        14.0, // Tablet
+        12.0  // Desktop
+    );
+
+    double tagFontSize = getResponsiveDimension(
+        10.0, // Mobile
+        12.0, // Tablet
+        11.0  // Desktop
+    );
+
+    // Responsive icon sizes
+    double iconSize = getResponsiveDimension(
+        20.0, // Mobile
+        24.0, // Tablet
+        22.0  // Desktop
+    );
+
+    double selectionCircleSize = getResponsiveDimension(
+        16.0, // Mobile
+        18.0, // Tablet
+        16.0  // Desktop
+    );
+
+    // Responsive padding and margins
+    double horizontalPadding = getResponsiveDimension(
+        12.0, // Mobile
+        16.0, // Tablet
+        14.0  // Desktop
+    );
+
+    double verticalPadding = getResponsiveDimension(
+        14.0, // Mobile
+        18.0, // Tablet
+        16.0  // Desktop
+    );
+
+    double bottomMargin = getResponsiveDimension(
+        6.0,  // Mobile
+        8.0,  // Tablet
+        8.0   // Desktop
+    );
+
+    // Responsive container constraints
+    double maxWidth = isMobile
+        ? screenWidth * 0.95
+        : isTablet
+        ? screenWidth * 0.8
+        : 450.0; // Fixed max width for desktop
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return GestureDetector(
+          onTap: onTap,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 250),
+            margin: EdgeInsets.only(bottom: bottomMargin),
+            padding: EdgeInsets.symmetric(
+              horizontal: horizontalPadding,
+              vertical: verticalPadding,
             ),
-            boxShadow: [
-              BoxShadow(
-                color: isSelected
-                    ? AppColors.primaryRed.withValues(alpha: 0.12)
-                    : Colors.black.withValues(alpha: 0.03),
-                blurRadius: 6,
-                offset: const Offset(0, 3),
+            constraints: BoxConstraints(
+              maxWidth: maxWidth,
+              minWidth: isMobile ? screenWidth * 0.85 : maxWidth * 0.9,
+            ),
+            decoration: BoxDecoration(
+              color: AppColors.lightGrey,
+              borderRadius: BorderRadius.circular(
+                  getResponsiveDimension(12.0, 16.0, 14.0)
               ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /// 🔹 Icon + Title + Selection Circle Row
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(AppDimensions.d10.w),
-                    decoration: BoxDecoration(
-                      color: isSelected ? AppColors.primaryRed : Colors.white,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.08),
-                          blurRadius: 4,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Icon(
-                      icon,
-                      size: AppDimensions.d24.w,
-                      color:
-                      isSelected ? Colors.white : AppColors.textSecondary,
-                    ),
-                  ),
-                  SizedBox(width: AppDimensions.d14.w),
-
-                  /// Title Text
-                  Expanded(
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: isLandscape
-                            ? AppDimensions.d16.sp
-                            : AppDimensions.d18.sp,
-                        fontWeight: FontWeight.w700,
-                        color: activeColor,
-                        fontFamily: 'GothamBold',
+              border: Border.all(
+                color: isSelected
+                    ? AppColors.primaryRed
+                    : AppColors.grey.withValues(alpha: 0.3),
+                width: isSelected ? 2 : 1,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: isSelected
+                      ? AppColors.primaryRed.withValues(alpha: 0.12)
+                      : Colors.black.withValues(alpha: 0.03),
+                  blurRadius: getResponsiveDimension(4.0, 6.0, 5.0),
+                  offset: Offset(0, getResponsiveDimension(2.0, 3.0, 2.5)),
+                ),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                /// Icon + Title + Selection Circle Row
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(
+                          getResponsiveDimension(8.0, 10.0, 9.0)
                       ),
-                      maxLines: 3,
+                      decoration: BoxDecoration(
+                        color: isSelected ? AppColors.primaryRed : Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.08),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Icon(
+                        icon,
+                        size: iconSize,
+                        color: isSelected ? Colors.white : AppColors.textSecondary,
+                      ),
+                    ),
+                    SizedBox(width: getResponsiveDimension(12.0, 14.0, 13.0)),
+
+                    /// Title Text
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: titleFontSize,
+                          fontWeight: FontWeight.w700,
+                          color: activeColor,
+                          fontFamily: 'GothamBold',
+                          height: 1.2, // Better line height for readability
+                        ),
+                        maxLines: isMobile ? 2 : 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+
+                    /// Selection Circle (optional)
+                    if (showSelectionCircle)
+                      Container(
+                        height: selectionCircleSize,
+                        width: selectionCircleSize,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: isSelected
+                              ? AppColors.primaryRed
+                              : Colors.transparent,
+                          border: Border.all(
+                              color: AppColors.primaryRed,
+                              width: isDesktop ? 1.5 : 2
+                          ),
+                        ),
+                        child: isSelected
+                            ? Icon(
+                          Icons.check,
+                          size: selectionCircleSize * 0.6,
+                          color: Colors.white,
+                        )
+                            : null,
+                      ),
+                  ],
+                ),
+                SizedBox(height: getResponsiveDimension(8.0, 10.0, 9.0)),
+
+                /// Description
+                Text(
+                  description,
+                  style: TextStyle(
+                    fontSize: descriptionFontSize,
+                    color: AppColors.textSecondary,
+                    fontFamily: 'Gotham',
+                    height: 1.4,
+                  ),
+                  maxLines: isMobile
+                      ? (isLandscape ? 2 : 3)
+                      : isTablet
+                      ? 3
+                      : 2, // Desktop: 2 lines max
+                  overflow: TextOverflow.ellipsis,
+                ),
+
+                /// Extra Note Container (optional)
+                if (extraNote != null) ...[
+                  SizedBox(height: getResponsiveDimension(8.0, 12.0, 10.0)),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: getResponsiveDimension(8.0, 10.0, 9.0),
+                      vertical: getResponsiveDimension(6.0, 8.0, 7.0),
+                    ),
+                    decoration: BoxDecoration(
+                      color: extraNoteColor ?? AppColors.primaryBlue.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(
+                          getResponsiveDimension(6.0, 8.0, 7.0)
+                      ),
+                      border: Border.all(
+                        color: extraNoteColor ?? AppColors.primaryBlue,
+                        width: 1,
+                      ),
+                    ),
+                    child: Text(
+                      extraNote!,
+                      style: TextStyle(
+                        fontSize: getResponsiveDimension(10.0, 12.0, 11.0),
+                        color: AppColors.primaryBlue,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'Gotham',
+                      ),
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-
-                  /// ✅ Selection Circle (optional)
-                  if (showSelectionCircle)
-                    Container(
-                      height: AppDimensions.d18.w,
-                      width: AppDimensions.d18.w,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: isSelected
-                            ? AppColors.primaryRed
-                            : Colors.transparent,
-                        border: Border.all(color: AppColors.primaryRed, width: 2),
-                      ),
-                    ),
                 ],
-              ),
-              SizedBox(height: AppDimensions.d10.h),
 
-              /// 🔹 Description
-              Text(
-                description,
-                style: TextStyle(
-                  fontSize: AppDimensions.d14.sp,
-                  color: AppColors.textSecondary,
-                  fontFamily: 'Gotham',
-                  height: 1.4,
-                ),
-                maxLines: isLandscape ? 3 : 4,
-                overflow: TextOverflow.ellipsis,
-              ),
-
-              SizedBox(height: AppDimensions.d12.h),
-
-              /// ✅ Extra Note Container (optional)
-              if (extraNote != null)
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: AppDimensions.d10.w,
-                    vertical: AppDimensions.d8.h,
+                /// Bottom Tags
+                if (showTag1 || showTag2 || showTag3) ...[
+                  SizedBox(height: getResponsiveDimension(8.0, 12.0, 10.0)),
+                  Wrap(
+                    spacing: getResponsiveDimension(12.0, 16.0, 14.0),
+                    runSpacing: getResponsiveDimension(4.0, 6.0, 5.0),
+                    children: [
+                      if (showTag1 && tag1Icon != null && tag1Text != null)
+                        _buildTag(tag1Icon!, tag1Text!, activeColor, tagFontSize, isMobile),
+                      if (showTag2 && tag2Icon != null && tag2Text != null)
+                        _buildTag(tag2Icon!, tag2Text!, activeColor, tagFontSize, isMobile),
+                      if (showTag3 && tag3Icon != null && tag3Text != null)
+                        _buildTag(tag3Icon!, tag3Text!, activeColor, tagFontSize, isMobile),
+                    ],
                   ),
-                  margin: EdgeInsets.only(bottom: AppDimensions.d12.h),
-                  decoration: BoxDecoration(
-                    color: extraNoteColor ?? AppColors.primaryBlue.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(AppDimensions.d8.r),
-                    border: Border.all(
-                      color: extraNoteColor ?? AppColors.primaryBlue,
-                      width: 1,
-                    ),
-                  ),
-                  child: Text(
-                    extraNote!,
-                    style: TextStyle(
-                      fontSize: AppDimensions.d12.sp,
-                      color: AppColors.primaryBlue,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-
-              /// 🔹 Bottom Tags
-              if (showTag1 || showTag2 || showTag3)
-                Wrap(
-                  spacing: AppDimensions.d16.w,
-                  runSpacing: AppDimensions.d6.h,
-                  children: [
-                    if (showTag1 && tag1Icon != null && tag1Text != null)
-                      _buildTag(tag1Icon!, tag1Text!, activeColor),
-                    if (showTag2 && tag2Icon != null && tag2Text != null)
-                      _buildTag(tag2Icon!, tag2Text!, activeColor),
-                    if (showTag3 && tag3Icon != null && tag3Text != null)
-                      _buildTag(tag3Icon!, tag3Text!, activeColor),
-                  ],
-                ),
-            ],
+                ],
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
-  /// 🔹 Helper Method for Small Tags
-  Widget _buildTag(IconData icon, String text, Color color) => Container(
-    padding: EdgeInsets.symmetric(
-      horizontal: AppDimensions.d8.w,
-      vertical: AppDimensions.d4.h,
-    ),
-    decoration: BoxDecoration(
-      color: Colors.transparent,
-      borderRadius: BorderRadius.circular(AppDimensions.d8.r),
-    ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, color: color, size: AppDimensions.d14.w),
-        SizedBox(width: 4.w),
-        Flexible(
-          child: Text(
-            text,
-            style: TextStyle(
-              fontSize: AppDimensions.d12.sp,
-              fontWeight: FontWeight.w500,
-              color: color,
-            ),
-            overflow: TextOverflow.ellipsis,
-          ),
+  /// Helper Method for Small Tags
+  Widget _buildTag(IconData icon, String text, Color color, double fontSize, bool isMobile) =>
+      Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: isMobile ? 6.0 : 8.0,
+          vertical: isMobile ? 3.0 : 4.0,
         ),
-      ],
-    ),
-  );
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(isMobile ? 6.0 : 8.0),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              color: color,
+              size: fontSize + 2, // Icon slightly larger than text
+            ),
+            SizedBox(width: isMobile ? 3.0 : 4.0),
+            Flexible(
+              child: Text(
+                text,
+                style: TextStyle(
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w500,
+                  color: color,
+                  fontFamily: 'Gotham',
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+            ),
+          ],
+        ),
+      );
 }

@@ -4,14 +4,17 @@ import 'package:get/get.dart';
 import '../presentation/routes/app_routes.dart';
 
 class HomeController extends GetxController {
-  final PageController pageController = PageController(viewportFraction: 0.78);
+  late final PageController pageController;
+
   final RxInt selectedCardIndex = 0.obs;
 
   final List<Map<String, dynamic>> cards = [
     {
       'titleTop': 'Start'.tr,
       'titleBottom': 'Game'.tr,
-      'subtitle': 'Jump into action! Play solo at your own pace or team up for a collaborative strategy challenge.'.tr,
+      'subtitle':
+      'Jump into action! Play solo at your own pace or team up for a collaborative strategy challenge.'
+          .tr,
       'cta': 'Tap to Start'.tr,
       'bg': 0xFFC34028,
       'bg2': 0xFFB23322,
@@ -20,7 +23,9 @@ class HomeController extends GetxController {
     {
       'titleTop': 'Join'.tr,
       'titleBottom': 'Challenge'.tr,
-      'subtitle': 'Accept an invite or launch a duel. Compete with friends or colleagues to sharpen your OKR skills.'.tr,
+      'subtitle':
+      'Accept an invite or launch a duel. Compete with friends or colleagues to sharpen your OKR skills.'
+          .tr,
       'cta': 'Tap to Join'.tr,
       'bg': 0xFFBDEFE4,
       'bg2': 0xFFA3E1D4,
@@ -29,7 +34,9 @@ class HomeController extends GetxController {
     {
       'titleTop': 'Score'.tr,
       'titleBottom': 'Board'.tr,
-      'subtitle': 'Track your performance, see where you rank, and celebrate milestones with badges and trophies.'.tr,
+      'subtitle':
+      'Track your performance, see where you rank, and celebrate milestones with badges and trophies.'
+          .tr,
       'cta': 'Tap to Check'.tr,
       'bg': 0xFFC9CBEF,
       'bg2': 0xFFB4B7EA,
@@ -40,13 +47,15 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    pageController = PageController(viewportFraction: 0.55);
+
+    // Only attach scroll listener if mobile layout
+    if (Get.width < 600) {
       pageController.addListener(_onScroll);
-    });
+    }
   }
 
   void _onScroll() {
-    if (!pageController.hasClients) return;
     final page = pageController.page;
     if (page != null) {
       selectedCardIndex.value = page.round();
@@ -73,10 +82,14 @@ class HomeController extends GetxController {
 
   void onTapCTA() {
     switch (selectedCardIndex.value) {
-      case 0:Get.toNamed(AppRoutes.gameMode);
+      case 0:
+        Get.toNamed(AppRoutes.gameMode);
+        break;
       case 1:
-      case 2:Get.toNamed(AppRoutes.scoreboardScreen);
-
+      // TODO: Add route for Challenge if needed
+        break;
+      case 2:
+        Get.toNamed(AppRoutes.scoreboardScreen);
         break;
     }
   }

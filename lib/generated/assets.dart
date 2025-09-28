@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String assetsImagesOkrnev = 'assets/images/okrnev.svg';
   static const String fontsGothamBlack900 = 'assets/fonts/gotham_black_900.ttf';
   static const String fontsGothamBlackRegular = 'assets/fonts/gotham_black_regular.ttf';
   static const String fontsGothamBold = 'assets/fonts/gotham_bold.ttf';
@@ -13,6 +14,7 @@ class Assets {
   static const String imagesBackcardImg = 'assets/images/backcard_img.png';
   static const String imagesBadge = 'assets/images/badge.png';
   static const String imagesCampaign = 'assets/images/campaign.svg';
+  static const String imagesCampaign11 = 'assets/images/campaign11.png';
   static const String imagesCampaignImage = 'assets/images/campaign_image.png';
   static const String imagesCard1 = 'assets/images/card_1.png';
   static const String imagesCertificate = 'assets/images/certificate.svg';
@@ -21,6 +23,7 @@ class Assets {
   static const String imagesDottedleftup = 'assets/images/dottedleftup.svg';
   static const String imagesDottedrightup = 'assets/images/dottedrightup.svg';
   static const String imagesFirstmaskgrp = 'assets/images/firstmaskgrp.svg';
+  static const String imagesFocusLogo = 'assets/images/focus_logo.png';
   static const String imagesGame = 'assets/images/game.png';
   static const String imagesGlobalPersondashboard = 'assets/images/global_persondashboard.png';
   static const String imagesGlobalRobort = 'assets/images/global_robort.png';
@@ -30,21 +33,27 @@ class Assets {
   static const String imagesLogo = 'assets/images/logo.svg';
   static const String imagesMaskgroup = 'assets/images/maskgroup.svg';
   static const String imagesNavigationImage = 'assets/images/navigation_image.png';
-  static const String imagesOkrnev = 'assets/images/okrnev.svg';
+  static const String imagesOkrLogo = 'assets/images/okr_logo.png';
+  static const String imagesOkrnavLogo = 'assets/images/okrnav_logo.png';
+  static const String imagesOkrnev = 'assets/images/okrnev.png';
   static const String imagesPersondash = 'assets/images/persondash.svg';
   static const String imagesPersondashboard = 'assets/images/persondashboard.svg';
   static const String imagesRight = 'assets/images/right.svg';
+  static const String imagesRobort11 = 'assets/images/robort11.png';
   static const String imagesRobot = 'assets/images/robot.svg';
   static const String imagesRoleIcon = 'assets/images/role_icon.png';
   static const String imagesRoleIcon2 = 'assets/images/role_icon2.png';
   static const String imagesSecondmaskgrp = 'assets/images/secondmaskgrp.svg';
   static const String imagesSolo = 'assets/images/solo.svg';
+  static const String imagesSolo11 = 'assets/images/solo11.png';
   static const String imagesSolo2 = 'assets/images/solo2.png';
   static const String imagesSoloImage = 'assets/images/solo_image.png';
   static const String imagesSolop = 'assets/images/solop.png';
   static const String imagesStartScreenImg = 'assets/images/start_screen_img.png';
   static const String imagesTeam = 'assets/images/team.svg';
+  static const String imagesTeam11 = 'assets/images/team11.png';
   static const String imagesTeamImage = 'assets/images/team_image.png';
   static const String imagesTrophy = 'assets/images/trophy.png';
+  static const String imagesWebBackground = 'assets/images/web_background.png';
 
 }

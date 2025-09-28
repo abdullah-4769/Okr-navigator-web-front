@@ -55,6 +55,7 @@ final Map<String, String> de = {
 
   // LANGUAGE & LOCALIZATION
   "select_language": "Sprache auswählen",
+
   "choose_language": "Wählen Sie Ihre bevorzugte Sprache",
   "currentLanguage": "Aktuelle Sprache",
   "english": "Englisch",

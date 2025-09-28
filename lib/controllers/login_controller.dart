@@ -96,18 +96,18 @@ class LoginController extends GetxController {
       SnackbarHelper.success('login_successful'.tr);
 
       // Navigate to home screen after successful login
-      await Get.offAllNamed('/start');
+      await Get.toNamed('/start');
     } catch (e) {
       SnackbarHelper.error('login_failed'.tr);
     } finally {
       isLoading.value = false;
     }
   }
-
-  @override
-  void onClose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.onClose();
-  }
+  //
+  // @override
+  // void onClose() {
+  //   emailController.dispose();
+  //   passwordController.dispose();
+  //   super.onClose();
+  // }
 }

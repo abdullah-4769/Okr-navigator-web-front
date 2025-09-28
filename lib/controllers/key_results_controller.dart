@@ -2,19 +2,16 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 class KeyResultsController extends GetxController {
-  // Add this method to your KeyResultsController class
-  List<Map<String, dynamic>> getSelectedKeyResults() => selectedIndexes.map((index) => keyResults[index]).toList();
-
   // Selected items count
   RxInt selectedCount = 0.obs;
 
   // Selected item indexes
   RxList<int> selectedIndexes = <int>[].obs;
 
-  // Required count (for now hardcoded, replace with backend later)
+  // Required count (hardcoded for now)
   RxInt requiredCount = 3.obs;
 
-  // List of Key Results - use translation KEYS instead of actual strings
+  // List of Key Results (translation keys instead of raw text)
   final List<Map<String, dynamic>> keyResults = [
     {
       'titleKey': 'achieve_5m_revenue',
@@ -53,7 +50,7 @@ class KeyResultsController extends GetxController {
     },
   ];
 
-  // Toggle selection of a key result
+  /// Toggle selection
   void toggleSelection(int index) {
     if (selectedIndexes.contains(index)) {
       selectedIndexes.remove(index);
@@ -65,11 +62,15 @@ class KeyResultsController extends GetxController {
     selectedCount.value = selectedIndexes.length;
   }
 
-  // Check if a key result is selected
+  /// Check if an item is selected
   bool isSelected(int index) => selectedIndexes.contains(index);
 
-  // Get list of selected key result titles - REMOVE .tr from here!
+  /// Return list of selected items (maps)
+  List<Map<String, dynamic>> getSelectedKeyResults() =>
+      selectedIndexes.map((index) => keyResults[index]).toList();
+
+  /// Return only selected titles (keys, not translated yet)
   List<String> getSelectedTitles() => selectedIndexes
-      .map((index) => keyResults[index]['titleKey'] as String) // Just return the key, no .tr
+      .map((index) => keyResults[index]['titleKey'] as String)
       .toList();
 }

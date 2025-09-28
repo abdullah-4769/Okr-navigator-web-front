@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../core/app_strings.dart';
 import '../../utils/snackbar_helper.dart';
+import '../../presentation/routes/app_routes.dart';
 
 class RegisterController extends GetxController {
   // Form Key
@@ -29,11 +30,12 @@ class RegisterController extends GetxController {
 
     isLoading.value = true;
     try {
-      // Fake API call
+      // Fake API call — replace with your real API
       await Future.delayed(const Duration(seconds: 2));
       SnackbarHelper.success('registration_successful'.tr);
 
-      await Get.offAllNamed('/login');
+      // Navigate to login (use AppRoutes)
+      await Get.toNamed(AppRoutes.login);
     } catch (e) {
       SnackbarHelper.error('registration_failed'.tr);
     } finally {
@@ -41,13 +43,13 @@ class RegisterController extends GetxController {
     }
   }
 
-  @override
-  void onClose() {
-    nameController.dispose();
-    phoneController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
-    super.onClose();
-  }
+  // @override
+  // void onClose() {
+  //   nameController.dispose();
+  //   phoneController.dispose();
+  //   emailController.dispose();
+  //   passwordController.dispose();
+  //   confirmPasswordController.dispose();
+  //   super.onClose();
+  // }
 }

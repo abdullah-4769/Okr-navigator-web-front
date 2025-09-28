@@ -38,7 +38,7 @@ final Map<String, String> en = {
   "please_choose_avatar": "Please choose an avatar",
   "team_created_successfully": "Team created successfully!",
   "team_code":"Team Code or Invite Link",
-  "new_team":"New Team",
+  'new_team':"New Team",
   /// (General from your other screens used here)
   "rewards_unlocked": "Rewards Unlocked",
   "badge": "Badge",
@@ -479,7 +479,7 @@ final Map<String, String> en = {
 "suggestion":"Suggestion",
   "of_initiative":"of Initiatives",
 "enter_initiative_name":"Enter Suggestion Initiative Name",
-  "describe_initiative_help":"Descibe Ibitiative Help",
+  "describe_initiative_help":"Descibe Initiative Help",
   "submit_analysis":"Submit Analysis",
   "begin_mission": "Begin Mission",
 

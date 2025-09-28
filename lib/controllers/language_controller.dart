@@ -4,7 +4,7 @@ import '../../core/localization/localization_services.dart';
 
 class LanguageController extends GetxController {
   final LocalizationService _localizationService =
-  Get.find<LocalizationService>();
+      Get.find<LocalizationService>();
 
   final _storage = GetStorage();
   static const String _storageKey = 'langCode';
@@ -18,7 +18,12 @@ class LanguageController extends GetxController {
     {'code': 'fr', 'name': 'French', 'nativeName': 'Français', 'flag': '🇫🇷'},
     {'code': 'de', 'name': 'German', 'nativeName': 'Deutsch', 'flag': '🇩🇪'},
     {'code': 'it', 'name': 'Italian', 'nativeName': 'Italiano', 'flag': '🇮🇹'},
-    {'code': 'za', 'name': 'South African', 'nativeName': 'Afrikaans', 'flag': '🇿🇦'},
+    {
+      'code': 'za',
+      'name': 'South African',
+      'nativeName': 'Afrikaans',
+      'flag': '🇿🇦',
+    },
     {'code': 'es', 'name': 'Spanish', 'nativeName': 'Español', 'flag': '🇪🇸'},
   ];
 
@@ -46,10 +51,10 @@ class LanguageController extends GetxController {
 
   String get currentLanguage => selectedLanguage.value;
 
-  /// Get language details
+  /// Get language details by code
   Map<String, String>? getLanguageByCode(String code) =>
       supportedLanguages.firstWhere(
-            (lang) => lang['code'] == code,
+        (lang) => lang['code'] == code,
         orElse: () => supportedLanguages.first,
       );
 }

@@ -129,142 +129,191 @@ class AppRoutes {
     GetPage(
       name: AppRoutes.missionScreen,
       page: () => MissionScreen(),
+      transition: Transition.cupertino,
     ),
     GetPage(
       name: AppRoutes.campaignModeScreen,
       page: () => CampaignModeScreen(),
+      transition: Transition.cupertino,
     ),
 
     GetPage(
       name: AppRoutes.teamDashboard,
       page: () => TeamDashboardScreen(),
+      transition: Transition.cupertino,
     ),
   GetPage(
   name: AppRoutes.selectStrategy,
   page: () => StrategySelectionScreen(),
+    transition: Transition.cupertino,
   ),
 
     GetPage(
       name: AppRoutes.teamChatScreen,
       page: () => TeamChatScreen(),
+      transition: Transition.cupertino,
     ),
 
     GetPage(
       name: AppRoutes.teamLobby,
       page: () => const TeamLobbyScreen(),
+      transition: Transition.cupertino,
     ),
     GetPage(
       name: AppRoutes.teamStrategicJourneyScreen,
       page: () => const TeamStrategyJourneyScreen(),
+      transition: Transition.cupertino,
     ),
     GetPage(
       name: AppRoutes.teamScoreboardSelectScreen,
       page: () => const TeamScoreboardSelectScreen(),
+      transition: Transition.cupertino,
     ),
 
     GetPage(
       name: AppRoutes.createTeam,
       page: () => const CreateTeamScreen(),
+      transition: Transition.cupertino,
     ),
 
     GetPage(
       name: AppRoutes.teamAchievementsScreen,
       page: () => const TeamAchievementsScreen(),
+      transition: Transition.cupertino,
     ),
 
     GetPage(
       name: AppRoutes.teamScoreboardScreen,
       page: () =>  TeamScoreboardScreen(),
+      transition: Transition.cupertino,
     ),
 
 
     GetPage(
       name: AppRoutes.teamStrategicArchitectScreen2,
       page: () => const TeamStrategicArchitectScreen2(),
+      transition: Transition.cupertino,
     ),
 
   GetPage(
   name: AppRoutes.teamGameCompleteScreen,
-  page: () => const TeamGameCompleteScreen(),),
+  page: () => const TeamGameCompleteScreen(),
+    transition: Transition.cupertino,),
 
     GetPage(
       name: AppRoutes.customAIAnalysisScreen2,
       page: () => const CustomAIAnalysisScreen2(),
+      transition: Transition.cupertino,
     ),
 
     GetPage(
       name: teamContextualAdjustmentScreen,
       page: () => TeamContextualAdjustmentScreen(),
+      transition: Transition.cupertino,
     ),
-    GetPage(name: teamaiAnalysisScreen, page: () => TeamAIAnalysisScreen()),
+    GetPage(name: teamaiAnalysisScreen, page: () => TeamAIAnalysisScreen(),
+      transition: Transition.cupertino,),
     GetPage(
       name: teamContextualChallengeScreen,
       page: () => TeamContextualChallengeScreen(),
+      transition: Transition.cupertino,
     ),
-    GetPage(name: teamKeyResultScreen, page: () => team.TeamKeyResultsScreen()),
+    GetPage(name: teamKeyResultScreen, page: () => team.TeamKeyResultsScreen(),
+      transition: Transition.cupertino,
+    ),
     GetPage(
       name: teamStrategySelection,
       page: () => TeamStrategySelectionScreen(),
+      transition: Transition.cupertino,
     ),
     GetPage(
       name: teamObjectiveSelectionScreen,
       page: () => TeamObjectiveScreen(),
+      transition: Transition.cupertino,
     ),
     GetPage(
       name: teamIndustryChooseScreen,
       page: () => TeamIndustryChooseScreen(),
+      transition: Transition.cupertino,
     ),
-    GetPage(name: assignRoleScreen, page: () => AssignRolesScreen()),
+    GetPage(name: assignRoleScreen, page: () => AssignRolesScreen(),
+      transition: Transition.cupertino,
+    ),
     GetPage(
       name: teamSuggestionInitiativeScreen,
       page: () => TeamSuggestionInitiativesScreen(selectedKeyResults: []),
+      transition: Transition.cupertino,
     ),
 
     /// ✅ Solo mode
-    GetPage(name: keyResultsScreen, page: () => KeyResultsScreen()),
-    GetPage(name: keyObjectiveScreen, page: () => KeyObjectiveSelectedScreen()),
+    GetPage(name: keyResultsScreen, page: () => KeyResultsScreen(),
+      transition: Transition.cupertino,),
+    GetPage(name: keyObjectiveScreen, page: () => KeyObjectiveSelectedScreen(),
+      transition: Transition.cupertino,),
 
-    GetPage(name: scoreboardScreen, page: () => ScoreboardScreen()),
+    GetPage(name: scoreboardScreen, page: () => ScoreboardScreen(),
+      transition: Transition.cupertino,),
     GetPage(
       name: finalTestCertificationScreen,
       page: () => FinalTestCertificationScreen(),
+      transition: Transition.cupertino,
+
     ),
-    GetPage(name: miniSimulationScreen, page: () => MiniSimulationScreen()),
+    GetPage(name: miniSimulationScreen, page: () => MiniSimulationScreen(),
+      transition: Transition.cupertino,),
     GetPage(
       name: miniSimulationPlayScreen,
       page: () => MiniSimulationPlayScreen(),
+      transition: Transition.cupertino,
     ),
-    GetPage(name: splash0, page: () => const SplashScreen()),
-    GetPage(name: splash1, page: () => const SplashScreen1()),
-    GetPage(name: splash2, page: () => const SplashScreen2()),
-    GetPage(name: splashScreenTeam, page: () => const SplashScreenTeam()),
-    GetPage(name: start, page: () => const StartScreen()),
-    GetPage(name: language, page: () => const LanguageScreen()),
-    GetPage(name: register, page: () => auth_register.RegisterScreen()),
-    GetPage(name: login, page: () => auth_login.LoginScreen()),
-    GetPage(name: home, page: () => HomeScreen()),
-    GetPage(name: gameMode, page: () => const GameModeScreen()),
-    GetPage(name: pricingScreen, page: () => PricingScreen()),
-    GetPage(name: aiAnalysisShowScreen, page: () => AIAnalysisScreen()),
+    GetPage(name: splash0, page: () => const SplashScreen(),
+      transition: Transition.cupertino,),
+    GetPage(name: splash1, page: () => const SplashScreen1(),
+      transition: Transition.cupertino,),
+    GetPage(name: splash2, page: () => const SplashScreen2(),
+      transition: Transition.cupertino,),
+    GetPage(name: splashScreenTeam, page: () => const SplashScreenTeam(),
+      transition: Transition.cupertino,),
+    GetPage(name: start, page: () => const StartScreen(),
+      transition: Transition.cupertino,),
+    GetPage(name: language, page: () => const LanguageScreen(),
+      transition: Transition.cupertino,),
+    GetPage(name: register, page: () => auth_register.RegisterScreen(),
+        transition: Transition.cupertino),
+    GetPage(name: login, page: () => auth_login.LoginScreen(),
+        transition: Transition.cupertino),
+    GetPage(name: home, page: () => HomeScreen(),
+        transition: Transition.cupertino),
+    GetPage(name: gameMode, page: () => const GameModeScreen(),
+        transition: Transition.cupertino),
+    GetPage(name: pricingScreen, page: () => PricingScreen(),
+        transition: Transition.cupertino),
+    GetPage(name: aiAnalysisShowScreen, page: () => AIAnalysisScreen(),
+        transition: Transition.cupertino),
     GetPage(
       name: personalDashboardScreen,
-      page: () => const PersonalDashboardScreen(),
+      page: () =>  PersonalDashboardScreen(),
+        transition: Transition.cupertino
     ),
     GetPage(
       name: personalAchievementScreen,
       page: () => const PersonalAchievementsScreen(),
+        transition: Transition.cupertino
     ),
     GetPage(
       name: strategyJourneyScreen,
-      page: () => const StrategyJourneyScreen(),
+      page: () =>  StrategyJourneyScreen(),
+        transition: Transition.cupertino
     ),
     GetPage(
       name: contextualChallenge,
-      page: () => const ContextualChallengeScreen(),
+      page: () =>  ContextualChallengeScreen(),
+        transition: Transition.cupertino
     ),
     GetPage(
       name: contextualCAdjustment,
       page: () => const ContextualCAdjustmentScreen(),
+        transition: Transition.cupertino
     ),
 
     GetPage(
@@ -277,10 +326,14 @@ class AppRoutes {
             : null;
         return ChooseIndustryScreen(selectedRole: selectedRole);
       },
+        transition: Transition.cupertino
+
     ),
 
-    GetPage(name: roleSelection, page: () => RoleSelectionScreen()),
-    GetPage(name: gameCompleteScreen, page: () => const GameCompleteScreen()),
+    GetPage(name: roleSelection, page: () => RoleSelectionScreen(),
+        transition: Transition.cupertino),
+    GetPage(name: gameCompleteScreen, page: () =>  GameCompleteScreen(),
+        transition: Transition.cupertino),
 
     GetPage(
       name: suggestionInitiativeScreen,
@@ -290,6 +343,7 @@ class AppRoutes {
           selectedKeyResults: args?['selectedKeyResults'] ?? [],
         );
       },
+        transition: Transition.cupertino
     ),
   ];
 }

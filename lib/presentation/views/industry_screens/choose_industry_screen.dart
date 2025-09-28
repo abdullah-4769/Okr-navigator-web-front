@@ -1,189 +1,302 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:game_app/presentation/widgets/screens_unique_parts/custom_header.dart';
 import 'package:get/get.dart';
-
 import '../../../controllers/choose_industry_controller.dart';
 import '../../../controllers/key_results_controller.dart';
 import '../../../core/app_colors.dart';
 import '../../../core/app_dimensions.dart';
 import '../../routes/app_routes.dart';
+import '../../widgets/Website/desktop_appbar.dart';
+import '../../widgets/common_image.dart';
 import '../../widgets/custom_button2.dart';
-import '../../widgets/custom_curved_arrow.dart';
 import '../../widgets/custom_home_navbar.dart';
-import '../../widgets/custom_svg.dart';
 import '../../widgets/custom_industry_container.dart';
+import '../../widgets/custom_svg.dart';
 import '../../widgets/screens_unique_parts/custom_background.dart';
-import '../roles/role_selection_screen.dart';
-// ... (other imports remain the same)
 
 class ChooseIndustryScreen extends StatelessWidget {
   final Map<String, dynamic>? selectedRole;
+  final ChooseIndustryController controller = Get.put(ChooseIndustryController());
 
   ChooseIndustryScreen({super.key, this.selectedRole});
 
-  final ChooseIndustryController controller = Get.put(ChooseIndustryController());
-
   @override
-  Widget build(BuildContext context) => OrientationBuilder(
-      builder: (context, orientation) {
-        final screenWidth = MediaQuery.of(context).size.width;
-        final screenHeight = MediaQuery.of(context).size.height;
-        Get.lazyPut(()=>KeyResultsController());
-        return Scaffold(
-          backgroundColor: Colors.white,
-          body: SafeArea(
-            child: CustomBackground(
-              child: Stack(
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      double screenWidth = constraints.maxWidth;
+      double screenHeight = constraints.maxHeight;
+
+      // Device detection
+      bool isMobile = screenWidth < 768;
+      bool isTablet = screenWidth >= 768 && screenWidth < 1024;
+      bool isDesktop = screenWidth >= 1024;
+
+      // Responsive font helpers
+      double headerFont(double mobile, double tablet, double desktop) =>
+          isMobile ? mobile : isTablet ? tablet : desktop;
+      double bodyFont(double mobile, double tablet, double desktop) =>
+          isMobile ? mobile : isTablet ? tablet : desktop;
+      double buttonFont(double mobile, double tablet, double desktop) =>
+          isMobile ? mobile : isTablet ? tablet : desktop;
+
+      double containerPadding() => isMobile ? 20 : isTablet ? 30 : 40;
+      double containerWidth() => isMobile
+          ? screenWidth * 0.9
+          : isTablet
+          ? screenWidth * 0.7
+          : 600;
+
+      if (isMobile) {
+        return _buildMobileLayout(context, headerFont, bodyFont, buttonFont);
+      } else {
+        return _buildDesktopWebLayout(
+          context,
+          headerFont,
+          bodyFont,
+          buttonFont,
+          containerPadding(),
+          containerWidth(),
+        );
+      }
+     }
+       );
+  }
+
+  // ----------------- Mobile Layout -----------------
+  Widget _buildMobileLayout(
+      BuildContext context,
+      double Function(double, double, double) headerFont,
+      double Function(double, double, double) bodyFont,
+      double Function(double, double, double) buttonFont) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    Get.lazyPut(() => KeyResultsController());
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: CustomBackground(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.all(AppDimensions.d16.h),
+            child: Column(
               children: [
+                SizedBox(height: screenHeight * 0.03),
+                Text(
+                  'choose_your_industry'.tr,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: headerFont(22, 24, 26),
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primaryRed,
+                  ),
+                ),
+                SizedBox(height: screenHeight * 0.02),
+                Text(
+                  'welcome_role'.trParams({'role': selectedRole?['title'] ?? 'Navigator'}),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: bodyFont(14, 16, 18),
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                SizedBox(height: screenHeight * 0.015),
+                Obx(() => Column(
+                  children: List.generate(
+                    controller.industries.length,
+                        (index) {
+                      final industry = controller.industries[index];
+                      final title = (industry['titleKey']?.toString() ?? 'Unknown').tr;
+                      final description =
+                          (industry['descriptionKey']?.toString() ?? 'No description').tr;
+                      return CustomIndustryContainer(
+                        title: title,
+                        description: description,
+                        icon: industry['icon'] as IconData? ?? Icons.business,
+                        isSelected: controller.selectedIndex.value == index,
+                        onTap: () => controller.selectIndustry(index),
+                      );
+                    },
+                  ),
+                )),
+                SizedBox(height: screenHeight * 0.03),
+                CustomButton2(
+                  text: 'select_continue'.tr,
+                  onPressed: () => controller.continueWithSelection(selectedRole),
+                  width: screenWidth * 0.85,
+                  height: 48,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+// ----------------- Desktop/Web Layout -----------------
+  Widget _buildDesktopWebLayout(
+      BuildContext context,
+      double Function(double, double, double) headerFont,
+      double Function(double, double, double) bodyFont,
+      double Function(double, double, double) buttonFont,
+      double padding,
+      double containerWidth) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    Get.lazyPut(() => KeyResultsController());
 
+    return Scaffold(
+      body: Stack(
+        children: [
+          // Background Image with opacity
+          Positioned.fill(
+            child: Stack(
+              children: [
+                // Background image
                 Positioned.fill(
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: AppDimensions.d20.h),
-                      child: Column(
-
-                        children: [
-                          SizedBox(height: screenHeight * 0.03),
-                          CustomHeader(title:
-                      trKey('choose'),
-                        highlightedText: trKey('your_industry'), onBackTap: () => Get.offAllNamed(AppRoutes.roleSelection),),
-
-
-
-                          SizedBox(height: screenHeight * 0.01),
-                          // Welcome Text
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
-                            child: Column(
-                              children: [
-                                Text(
-                                  'welcome_role'.trParams({'role': selectedRole?['title']?.toString() ?? 'Navigator'}),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineLarge
-                                      ?.copyWith(
-                                    color: AppColors.primaryRed,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                SizedBox(height: screenHeight * 0.01),
-                                Text(
-                                  'entered_company_crisis'.tr,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                    color: AppColors.textSecondary,
-                                    height: 1.4,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                SizedBox(height: screenHeight * 0.01),
-                                Text(
-                                  'own_industry'.tr,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall
-                                      ?.copyWith(
-                                    color: AppColors.black,
-                                    height: 1.4,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: screenHeight * 0.025),
-                          // Industry List
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
-                            child: Obx(
-                                  () => Column(
-                                children: List.generate(
-                                  controller.industries.length,
-                                      (index) {
-                                    final industry = controller.industries[index];
-                                    final titleKey = industry['titleKey']?.toString();
-                                    final descriptionKey = industry['descriptionKey']?.toString();
-
-                                    // Null safety check - provide default values if keys are null
-                                    final title = titleKey != null ? titleKey.tr : 'Unknown Industry';
-                                    final description = descriptionKey != null ? descriptionKey.tr : 'No description available';
-
-                                    return CustomIndustryContainer(
-                                      title: title,
-                                      description: description,
-                                      icon: industry['icon'] as IconData? ?? Icons.business,
-                                      isSelected: controller.selectedIndex.value == index,
-                                      onTap: () => controller.selectIndustry(index),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: screenHeight * 0.03),
-                          // Continue Button & Tutorial
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
-                            child: Column(
-                              children: [
-                                CustomButton2(
-                                  text: 'select_continue'.tr,
-                                  onPressed: () => controller.continueWithSelection(selectedRole),
-                                ),
-                                SizedBox(height: screenHeight * 0.015),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'first_time_playing'.tr,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(color: Colors.black),
-                                    ),
-                                    Padding(
-                                      padding:  EdgeInsets.symmetric(horizontal: 4.w),
-                                      child: GestureDetector(
-                                        onTap: controller.openTutorial,
-                                        child: Text(
-                                          'watch_tutorial_video'.tr,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium
-                                              ?.copyWith(
-                                            color: AppColors.primaryRed,
-                                            fontWeight: FontWeight.bold,
-                                            decoration: TextDecoration.underline,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                               // SizedBox(height: screenHeight * 0.0009),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                  child: Opacity(
+                    opacity: 0.1,
+                    child: Image.asset(
+                      'assets/images/web_background.png',
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                // Home NavBar
-                Positioned(
-                  right: screenWidth * -0.07,
-                  top: screenHeight * 0.50,
-                  child: const CustomHomeNavBar(),
-                ),
-              ],)
+              ],
             ),
           ),
-        );
-      },
+
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: DesktopAppBar(
+              screenWidth: screenWidth,
+              screenHeight: screenHeight, title: 'choose_your_industry'.tr, subtitle: '',
+            ),
+          ),
+
+
+          // Scrollable white container
+          Center(
+            child: Container(
+              width: containerWidth,
+              height: screenHeight * 0.75,
+              margin: const EdgeInsets.only(top: 120),
+              padding: EdgeInsets.all(padding),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 20,
+                    spreadRadius: 5,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: 20),
+                    Text(
+                      'welcome_role'.trParams({'role': selectedRole?['title'] ?? 'Navigator'}),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: bodyFont(14, 16, 18),
+                        color: AppColors.primaryRed,
+                        fontFamily: "GothamUltra",
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Obx(() => Column(
+                      children: List.generate(
+                        controller.industries.length,
+                            (index) {
+                          final industry = controller.industries[index];
+                          final title = (industry['titleKey']?.toString() ?? 'Unknown').tr;
+                          final description =
+                              (industry['descriptionKey']?.toString() ?? 'No description').tr;
+                          return CustomIndustryContainer(
+                            title: title,
+                            description: description,
+                            icon: industry['icon'] as IconData? ?? Icons.business,
+                            isSelected: controller.selectedIndex.value == index,
+                            onTap: () => controller.selectIndustry(index),
+                          );
+                        },
+                      ),
+                    )),
+                    const SizedBox(height: 25),
+                    CustomButton2(
+                      text: 'select_continue'.tr,
+                      onPressed: () => controller.continueWithSelection(selectedRole),
+                      width: containerWidth * 0.3,
+                      height: 35,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          // Tutorial section - floating outside white container on left side
+          Positioned(
+            top: screenHeight * 0.9,
+            left: 20,
+            child: GestureDetector(
+              onTap: controller.openTutorial,
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 8,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Text(
+                  'watch_tutorial_video'.tr,
+                  style: TextStyle(
+                    color: AppColors.primaryRed,
+                    fontWeight: FontWeight.bold,
+                    fontSize: bodyFont(12, 14, 16),
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          /// Home Navbar
+          Positioned(
+            bottom: 20,
+            left: 0,
+            child: GestureDetector(
+              onTap: () => Get.back(), // 👈 goes back to previous screen
+              child: CustomSvg(
+                assetPath: 'assets/images/left.svg',
+                semanticsLabel: '',
+              ),
+            ),
+          ),
+          // Home Navbar at bottom middle
+          Positioned(
+            bottom: 20,
+            left: 0,
+            right: -30,
+            child: Center(child: const CustomHomeNavBar()),
+          ),
+        ],
+      ),
     );
+  }
+
 }
