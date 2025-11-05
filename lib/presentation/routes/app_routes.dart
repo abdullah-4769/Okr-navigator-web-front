@@ -268,6 +268,7 @@ class AppRoutes {
     ),
     GetPage(name: splash0, page: () => const SplashScreen(),
       transition: Transition.cupertino,),
+
     GetPage(name: splash1, page: () => const SplashScreen1(),
       transition: Transition.cupertino,),
     GetPage(name: splash2, page: () => const SplashScreen2(),

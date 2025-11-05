@@ -9,7 +9,7 @@ class LoginController extends GetxController {
   final TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  // Storage for remember me functionality
+  // Storage for remember me
   final _storage = GetStorage();
   final String _rememberMeKey = 'rememberMe';
   final String _emailKey = 'savedEmail';

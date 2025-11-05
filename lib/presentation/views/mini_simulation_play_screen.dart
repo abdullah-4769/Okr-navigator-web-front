@@ -38,6 +38,7 @@ class MiniSimulationPlayScreen extends StatelessWidget {
     }
   }
 
+
   @override
   Widget build(BuildContext context) => Scaffold(
     backgroundColor: Colors.white,

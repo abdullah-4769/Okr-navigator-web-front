@@ -28,7 +28,6 @@ class ChooseIndustryScreen extends StatelessWidget {
       double screenWidth = constraints.maxWidth;
       double screenHeight = constraints.maxHeight;
 
-      // Device detection
       bool isMobile = screenWidth < 768;
       bool isTablet = screenWidth >= 768 && screenWidth < 1024;
       bool isDesktop = screenWidth >= 1024;

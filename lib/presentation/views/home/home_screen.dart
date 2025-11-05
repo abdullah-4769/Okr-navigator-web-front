@@ -18,6 +18,7 @@ class HomeScreen extends StatelessWidget {
   bool get isMobile => Get.width < 600;
   bool get isDesktop => Get.width >= 1024;
 
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;

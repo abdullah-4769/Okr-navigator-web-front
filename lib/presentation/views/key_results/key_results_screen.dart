@@ -31,7 +31,6 @@ class KeyResultsScreen extends StatelessWidget {
   );
   final JourneyController journeyController = Get.find<JourneyController>();
 
-  // Translation helper
   String _safeTranslate(String? key, {String fallback = ''}) {
     if (key == null) return fallback;
     try {
@@ -97,8 +96,6 @@ class KeyResultsScreen extends StatelessWidget {
                         ),
 
                         SizedBox(height: screenHeight * 0.015),
-
-                        /// Objective
                         Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: _getHorizontalPadding(screenWidth),

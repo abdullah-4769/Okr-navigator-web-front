@@ -17,6 +17,7 @@ import '../../widgets/custom_textfield.dart';
 class LoginScreen extends StatelessWidget {
   final controller = Get.find<LoginController>();
 
+
   LoginScreen({super.key});
 
   @override
