@@ -30,7 +30,6 @@ class ContextualCAdjustmentScreen extends StatelessWidget {
         child: OrientationBuilder(
           builder: (context, orientation) => Stack(
               children: [
-                /// Scrollable Content
                 Positioned.fill(
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),

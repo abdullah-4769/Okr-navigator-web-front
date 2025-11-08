@@ -18,7 +18,6 @@ import '../../widgets/screens_unique_parts/custom_header.dart';
 class PersonalDashboardScreen extends StatelessWidget {
   PersonalDashboardScreen({super.key});
 
-  // Initialize controller
   final PersonalDashboardController controller = Get.put(PersonalDashboardController());
 
   @override

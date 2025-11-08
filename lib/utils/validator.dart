@@ -17,7 +17,6 @@ class Validators {
   static String? phone(String? value) {
     if (value == null || value.isEmpty) return AppStrings.phoneRequired;
 
-    // Remove all non-digit characters except +
     final cleanedValue = value.replaceAll(RegExp(r'[^\d+]'), '');
 
     // Check for valid phone number patterns

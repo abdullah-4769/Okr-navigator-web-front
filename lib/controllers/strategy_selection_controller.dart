@@ -12,7 +12,7 @@ class StrategySelectionController extends GetxController {
     'assets/images/card_1.png',
   ];
 
-  /// Index of the selected card (-1 = backcard)
+  /// Index of the  card (-1 = backcard)
   final RxInt selectedCardIndex = (-1).obs;
 
   /// Whether a card is revealed

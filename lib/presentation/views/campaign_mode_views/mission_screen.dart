@@ -9,7 +9,7 @@ import '../../widgets/screens_unique_parts/custom_background.dart';
 import '../../widgets/screens_unique_parts/custom_header.dart';
 import '../../widgets/custom_home_navbar.dart';
 
-import '../../widgets/team_mode_widgets/section_card.dart'; // ✅ use SectionCard
+import '../../widgets/team_mode_widgets/section_card.dart'; // ✅ use
 
 class MissionScreen extends StatelessWidget {
   static const String routeName = "/mission";

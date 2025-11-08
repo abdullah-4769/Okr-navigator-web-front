@@ -16,7 +16,6 @@ import '../../widgets/screens_unique_parts/custom_header.dart';
 class GameModeScreen extends StatelessWidget {
   const GameModeScreen({super.key});
 
-  // ✅ Helpers for platform detection
   bool get isDesktop =>
       defaultTargetPlatform == TargetPlatform.windows ||
           defaultTargetPlatform == TargetPlatform.macOS ||

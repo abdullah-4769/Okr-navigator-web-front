@@ -24,8 +24,7 @@ class GameCompleteScreen extends StatelessWidget {
   final JourneyController journeyController = Get.find<JourneyController>();
 
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
+  Widget build(BuildContext context) => LayoutBuilder(
       builder: (context, constraints) {
         final helper =
         ResponsiveHelper(constraints.maxWidth, constraints.maxHeight);
@@ -37,7 +36,6 @@ class GameCompleteScreen extends StatelessWidget {
         }
       },
     );
-  }
 
   /// ----------------- Mobile Layout -----------------
   Widget _buildMobileLayout(BuildContext context, ResponsiveHelper helper) {

@@ -4,7 +4,7 @@ class StrategyJourneyController extends GetxController {
   /// progress is percentage 0..100
   final RxDouble progress = 100.0.obs;
 
-  /// Steps labels used by CustomJourneyMap
+  /// Steps labels used by
   final RxList<String> steps = <String>[
     "strategy_selection",
     "objective_selection",

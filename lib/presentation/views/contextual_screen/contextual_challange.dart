@@ -29,7 +29,6 @@ class ContextualChallengeScreen extends StatelessWidget {
   // Get.lazyPut
   //
   // (
-  //
   // () => KeyObjectiveController());
   // Get.lazyPut(() => KeyResultsController());
 

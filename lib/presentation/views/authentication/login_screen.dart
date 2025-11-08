@@ -60,7 +60,7 @@ class LoginScreen extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(
               horizontal: horizontalPadding,
-              vertical: screenHeight * 0.02, // Added vertical padding
+              vertical: screenHeight * 0.02, // Added  padding
             ),
             child: Form(
               key: controller.formKey,

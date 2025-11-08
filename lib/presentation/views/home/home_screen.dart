@@ -58,7 +58,6 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: AppDimensions.d26.h),
 
-                  // ===== Header =====
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

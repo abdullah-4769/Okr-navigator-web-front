@@ -6,7 +6,7 @@ import '../presentation/routes/app_routes.dart';
 class RoleSelectionController extends GetxController {
   final RxInt selectedIndex = (-1).obs;
 
-  // Roles with translated strings
+  // Roles with translated
   final List<Map<String, dynamic>> roles = [
     {
       'id': 0,

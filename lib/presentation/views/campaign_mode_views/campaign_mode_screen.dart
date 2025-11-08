@@ -41,7 +41,7 @@ class CampaignModeScreen extends StatelessWidget {
                     children: [
                       SizedBox(height: 10.h),
 
-                      /// ✅ Header
+                      /// ✅
                       CustomHeader(
                         title: "campaign".tr,
                         highlightedText: "mode".tr,

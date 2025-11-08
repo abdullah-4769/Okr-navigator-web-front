@@ -23,7 +23,7 @@ class RegisterScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       body: LayoutBuilder(
         builder: (context, constraints) {
-          // Check if it's mobile (width < 768)
+          //  if it's mobile (width < 768)
           bool isMobile = constraints.maxWidth < 768;
 
           if (isMobile) {

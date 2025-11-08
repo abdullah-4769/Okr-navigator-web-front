@@ -24,7 +24,7 @@ class _SwipeToStartState extends State<SwipeToStart> {
 
   @override
   Widget build(BuildContext context) {
-    // Sizes per device
+    // Sizes per
     final bool isMobile = _isMobile(context);
     final bool isTablet = _isTablet(context);
     final bool isDesktop = _isDesktop(context);

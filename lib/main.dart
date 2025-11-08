@@ -17,7 +17,6 @@ Future<void> main() async {
   // Initialize local storage (GetStorage)
   await GetStorage.init();
 
-  // Initialize localization service
   final localizationService = LocalizationService();
   await localizationService.init();
 

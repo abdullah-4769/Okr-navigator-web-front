@@ -59,8 +59,6 @@ class MiniSimulationPlayScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
-
                       /// HEADER
                       CustomHeader(
                         title: 'OKR'.tr,
@@ -68,8 +66,7 @@ class MiniSimulationPlayScreen extends StatelessWidget {
                         subtitle: 'solve_okr_scenario'.tr,
                         onBackTap: () => Get.back(),
                       ),
-
-SizedBox(height: 16.h,),
+                      SizedBox(height: 16.h,),
                       /// TIMER
                       Obx(() => Center(
                         child: CustomCircularTimer(
@@ -79,7 +76,7 @@ SizedBox(height: 16.h,),
                         ),
                       )),
                       SizedBox(height: AppDimensions.d8.h),
-                      Center(child: const ResponsiveArrow()),
+                      const Center(child: ResponsiveArrow()),
                       SizedBox(height: AppDimensions.d8.h),
                       /// OBJECTIVE
                       Padding(

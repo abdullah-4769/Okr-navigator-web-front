@@ -23,7 +23,6 @@ class KeyObjectiveSelectedScreen extends StatelessWidget {
   final KeyObjectiveController controller = Get.put(KeyObjectiveController());
   final JourneyController journeyController = Get.find<JourneyController>();
 
-  /// Safe translate helper
   String _safeTranslate(String? key, {String fallback = ''}) {
     if (key == null) return fallback;
     try {
