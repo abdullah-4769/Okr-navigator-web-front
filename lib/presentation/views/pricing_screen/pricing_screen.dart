@@ -175,6 +175,7 @@ class _ResponsivePricingScreen extends StatelessWidget {
                       }),
                       SizedBox(
                         width: constraints.maxWidth * 0.45,
+
                         child: CustomButton2(
                           text: trKey('select_continue'),
                           onPressed: () {
@@ -430,12 +431,13 @@ class _ResponsivePricingScreen extends StatelessWidget {
   Widget _buildDesktopBottomControls() {
     return Container(
       width: screenWidth * 0.5,
+
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: screenWidth * 0.25,
-            height: 60,
+            width: screenWidth * 0.4,
+            height: 70.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               boxShadow: [

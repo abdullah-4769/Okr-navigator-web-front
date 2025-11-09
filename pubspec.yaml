@@ -28,6 +28,9 @@ dependencies:
   get_storage: ^2.1.1
   flutter_svg: ^1.1.6
   carousel_slider: ^5.1.1
+  retrofit: ^4.7.3
+  
+
   flutter_localizations:
     sdk: flutter
   cupertino_icons: ^1.0.8

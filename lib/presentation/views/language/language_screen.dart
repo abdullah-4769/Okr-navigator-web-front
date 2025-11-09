@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:game_app/generated/assets.dart';
 
@@ -195,6 +196,7 @@ class LanguageScreen extends StatelessWidget {
 
   /// 🔹 Continue button
   Widget _buildContinueButton(double screenWidth, bool isTablet) => SizedBox(
+    height: 70.h,
     //width: isTablet ? 300 : double.infinity,
     child: CustomButton(
       text: 'continue'.tr,

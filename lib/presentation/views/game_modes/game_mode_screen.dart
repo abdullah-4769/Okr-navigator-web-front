@@ -309,7 +309,8 @@ class GameModeScreen extends StatelessWidget {
 
                 /// Continue Button
                 SizedBox(
-                  width: size.width * 0.2,
+                  width: size.width * 0.4,
+                  height: 70.h,
                   child: CustomButton(
                     text: 'select_continue'.tr,
                     onPressed: controller.navigateToPricingScreen,
