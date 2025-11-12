@@ -17,7 +17,7 @@ class CustomBackground extends StatelessWidget {
   Widget build(BuildContext context) => Container(
       decoration: BoxDecoration(
         gradient: gradient ??
-            const LinearGradient(
+             LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [

@@ -55,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
               Positioned.fill(
                 child: isMobile
                     ? Container(
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,

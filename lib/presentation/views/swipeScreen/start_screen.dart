@@ -47,7 +47,7 @@ class StartScreen extends StatelessWidget {
         else
         // Mobile → Gradient background
           Container(
-            decoration: const BoxDecoration(
+            decoration:  BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,

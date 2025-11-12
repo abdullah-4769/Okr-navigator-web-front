@@ -36,7 +36,7 @@ class AppColors {
 
   // New Gradient Colors for Splash Screen Background
   static const Color backgroundTop = Color(0xFFFFFFFF);
-  static const Color backgroundBottom = Color(0xFFFFE6E5);
+  static  Color backgroundBottom = Color(0xFFFFE6E5).withOpacity(0.5);
   static const Color white = Colors.white;
   static const Color black = Colors.black;
   static const Color grey = Colors.grey;

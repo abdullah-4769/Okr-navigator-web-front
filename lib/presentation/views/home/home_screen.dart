@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           )
-              : const BoxDecoration(
+              :  BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,

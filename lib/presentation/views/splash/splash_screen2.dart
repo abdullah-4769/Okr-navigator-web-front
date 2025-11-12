@@ -29,7 +29,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
         width: double.infinity,
         height: double.infinity,
         decoration: isMobile
-            ? const BoxDecoration(
+            ? BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
