@@ -1,0 +1,72 @@
+name: game_app
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.8.1 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_screenutil: ^5.9.3
+  json_serializable: ^6.11.3
+  bloc: ^9.0.0
+  build_runner: ^2.7.0
+  connectivity_plus: ^5.0.2
+  flutter_bloc: ^9.1.1
+  cloud_firestore: ^4.7.1
+  dio: ^5.8.0+1
+  path_provider: ^2.0.15
+  google_fonts: ^6.3.1
+  shared_preferences: ^2.5.3
+  intl: ^0.20.2
+  get: ^4.7.2
+  http: ^1.5.0
+  flutter_dotenv: ^6.0.0
+  get_storage: ^2.1.1
+  flutter_svg: ^1.1.6
+  carousel_slider: ^5.1.1
+  retrofit: ^4.7.3
+  share_plus:
+
+
+
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  google_sign_in: 6.1.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  generate: true
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/carte defis/
+    - assets/cartes objectifs/
+    - assets/frencardsstrategy/
+
+  fonts:
+    - family: Gotham
+      fonts:
+        - asset: assets/fonts/gotham_book.ttf
+    - family: GothamMedium
+      fonts:
+        - asset: assets/fonts/gotham_medium.ttf
+    - family: GothamBold
+      fonts:
+        - asset: assets/fonts/gotham_bold.ttf
+    - family: GothamExtraBold
+      fonts:
+        - asset: assets/fonts/gotham_black_900.ttf
+    - family: GothamUltra
+      fonts:
+        - asset: assets/fonts/gotham_ultra.ttf
