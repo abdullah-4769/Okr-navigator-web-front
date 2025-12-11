@@ -17,6 +17,7 @@ import 'package:game_app/presentation/views/team_mode/team_strategy_selection.da
 import 'package:game_app/presentation/views/team_mode/team_industry_choose_screen.dart';
 
 // ✅ Use aliases to avoid name conflicts
+import '../challenge_view/join_challenge_screen.dart';
 import '../views/key_results/key_results_screen.dart' as solo;
 import '../views/key_results/key_results_screen.dart';
 import '../views/team_mode/create_team_screen.dart';
@@ -117,6 +118,7 @@ class AppRoutes {
   static const teamChatScreen = '/team-chat-screen';
   static const String campaignModeScreen = "/campaignMode";
   static const String missionScreen = "/mission_screen";
+  static const String joinChallengeScreen = "/join_challenge_screen";
 
 
 
@@ -192,6 +194,11 @@ class AppRoutes {
     GetPage(
       name: AppRoutes.teamStrategicArchitectScreen2,
       page: () => const TeamStrategicArchitectScreen2(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: AppRoutes.joinChallengeScreen,
+      page: () => const JoinChallengeScreen(),
       transition: Transition.cupertino,
     ),
 

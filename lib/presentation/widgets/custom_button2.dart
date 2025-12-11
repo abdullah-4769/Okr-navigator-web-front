@@ -247,131 +247,222 @@ import '../../core/app_dimensions.dart';
 class CustomButton2 extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
+
   final bool isLoading;
+
   final Widget? leading;
+  final Widget? trailing;
+
   final Color? backgroundColor;
   final Color? textColor;
+  final Color? disabledColor;
+  final Color? disabledTextColor;
+  final Color? customShadowColor;
+
   final double? width;
   final double? height;
   final double borderRadius;
-  final bool hasShadow;
+  final double? borderWidth;
   final Color? borderColor;
+
+  final bool fullWidth;
+  final bool hasShadow;
+  final bool enablePressAnimation;
+  final bool disableSplash;
+
+  final TextStyle? textStyle;
+  final MainAxisAlignment alignment;
+
+  final double? minWidth;
+  final double? minHeight;
 
   const CustomButton2({
     super.key,
     required this.text,
     required this.onPressed,
+
     this.isLoading = false,
+
     this.leading,
+    this.trailing,
+
     this.backgroundColor,
     this.textColor,
+    this.disabledColor,
+    this.disabledTextColor,
+    this.customShadowColor,
+
     this.width,
     this.height,
     this.borderRadius = AppDimensions.d30,
-    this.hasShadow = true,
+    this.borderWidth,
     this.borderColor,
+
+    this.fullWidth = true,
+    this.hasShadow = true,
+    this.enablePressAnimation = true,
+    this.disableSplash = false,
+
+    this.textStyle,
+    this.alignment = MainAxisAlignment.center,
+
+    this.minWidth,
+    this.minHeight,
   });
 
   @override
   Widget build(BuildContext context) {
-    // Use LayoutBuilder to react to parent constraints (perfect for resizable windows)
     return LayoutBuilder(
       builder: (context, constraints) {
-        // Dynamic values based on available width
         final double maxWidth = constraints.maxWidth;
-        final bool isWideScreen = maxWidth > 600; // Treat >600 as "large" (tablet+ / desktop)
+        final bool isWideScreen = maxWidth > 600; // Tablet / Desktop
 
-        // Adaptive values
-        final double buttonHeight = height ??
-            (isWideScreen
-                ? 72.0    // Taller on desktop/web
-                : 56.0.h); // Scaled on mobile/tablet
+        final double buttonHeight =
+            height ?? (isWideScreen ? 72.0 : 56.0.h);
 
-        final double buttonWidth = width ?? (isWideScreen ? 280.0 : double.infinity);
+        final double buttonWidth =
+            width ?? (isWideScreen ? 280.0 : double.infinity);
 
-        final double fontSize = isWideScreen
-            ? 17.0.spMin   // Use .spMin to respect user font scaling but cap growth
-            : 15.0.sp;
+        final double fontSize =
+        isWideScreen ? 17.0.spMin : 15.0.sp;
 
-        final double iconSize = isWideScreen ? 28.0 : 24.0;
-        final double horizontalPadding = isWideScreen ? 32.0 : 24.0.w;
-        final double verticalPadding = isWideScreen ? 20.0 : 16.0.h;
-        final double effectiveBorderRadius = isWideScreen ? 16.0 : borderRadius.r;
+        final double iconSize =
+        isWideScreen ? 28.0 : 24.0;
+
+        final double horizontalPadding =
+        isWideScreen ? 32.0 : 24.0.w;
+
+        final double verticalPadding =
+        isWideScreen ? 20.0 : 16.0.h;
+
+        final double effectiveBorderRadius =
+        isWideScreen ? 16.0 : borderRadius.r;
 
         final bool isDisabled = isLoading || onPressed == null;
 
-        return SizedBox(
-          width: buttonWidth,
-          height: buttonHeight,
-          child: ElevatedButton(
-            onPressed: isDisabled ? null : onPressed,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: backgroundColor ?? AppColors.primaryRed,
-              foregroundColor: textColor ?? AppColors.white,
-              disabledBackgroundColor: AppColors.grey.withOpacity(0.6),
-              disabledForegroundColor: AppColors.white.withOpacity(0.7),
-              elevation: hasShadow ? (isWideScreen ? 8.0 : 4.0) : 0,
-              shadowColor: Colors.black.withOpacity(isWideScreen ? 0.25 : 0.18),
-              padding: EdgeInsets.symmetric(
-                horizontal: horizontalPadding,
-                vertical: verticalPadding,
+        Widget buttonContent = isLoading
+            ? SizedBox(
+          width: iconSize,
+          height: iconSize,
+          child: CircularProgressIndicator(
+            strokeWidth: isWideScreen ? 3.5 : 3.0,
+            valueColor: AlwaysStoppedAnimation(
+                textColor ?? AppColors.white),
+          ),
+        )
+            : Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: alignment,
+          children: [
+            if (leading != null) ...[
+              IconTheme(
+                data: IconThemeData(
+                    size: iconSize,
+                    color: textColor ?? AppColors.white),
+                child: leading!,
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(effectiveBorderRadius),
-                side: borderColor != null
-                    ? BorderSide(color: borderColor!, width: isWideScreen ? 2.0 : 1.5.w)
-                    : BorderSide.none,
-              ),
-            ).copyWith(
-              overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
-                if (states.contains(MaterialState.hovered)) {
-                  return (backgroundColor ?? AppColors.primaryRed).withOpacity(0.1);
-                }
-                if (states.contains(MaterialState.pressed)) {
-                  return (backgroundColor ?? AppColors.primaryRed).withOpacity(0.2);
-                }
-                return null;
-              }),
-            ),
-            child: isLoading
-                ? SizedBox(
-              width: iconSize,
-              height: iconSize,
-              child: CircularProgressIndicator(
-                strokeWidth: isWideScreen ? 3.5 : 3.0,
-                valueColor: AlwaysStoppedAnimation(textColor ?? AppColors.white),
-              ),
-            )
-                : Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (leading != null) ...[
-                  IconTheme(
-                    data: IconThemeData(size: iconSize, color: textColor ?? AppColors.white),
-                    child: leading!,
-                  ),
-                  SizedBox(width: isWideScreen ? 14 : 10.w),
-                ],
-                Flexible(
-                  child: Text(
-                    text,
-                    style: TextStyle(
+              SizedBox(width: isWideScreen ? 14 : 10.w),
+            ],
+
+            Flexible(
+              child: Text(
+                text,
+                style: textStyle ??
+                    TextStyle(
                       fontSize: fontSize,
-                      fontWeight: isWideScreen ? FontWeight.w600 : FontWeight.w500,
+                      fontWeight: isWideScreen
+                          ? FontWeight.w600
+                          : FontWeight.w500,
                       fontFamily: 'GothamBold',
                       letterSpacing: isWideScreen ? 0.4 : 0.2,
                       height: 1.3,
                       color: textColor ?? AppColors.white,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+              ),
             ),
+
+            if (trailing != null) ...[
+              SizedBox(width: isWideScreen ? 14 : 10.w),
+              IconTheme(
+                data: IconThemeData(
+                    size: iconSize,
+                    color: textColor ?? AppColors.white),
+                child: trailing!,
+              ),
+            ],
+          ],
+        );
+
+        final button = SizedBox(
+          width: fullWidth ? double.infinity : buttonWidth,
+          height: buttonHeight,
+          child: ElevatedButton(
+            onPressed: isDisabled ? null : onPressed,
+            style: ElevatedButton.styleFrom(
+              backgroundColor:
+              backgroundColor ?? AppColors.primaryRed,
+              foregroundColor: textColor ?? AppColors.white,
+
+              disabledBackgroundColor: disabledColor ??
+                  AppColors.grey.withOpacity(0.6),
+              disabledForegroundColor: disabledTextColor ??
+                  AppColors.white.withOpacity(0.7),
+
+              elevation: hasShadow
+                  ? (isWideScreen ? 8.0 : 4.0)
+                  : 0,
+
+              shadowColor: (customShadowColor ?? Colors.black)
+                  .withOpacity(isWideScreen ? 0.25 : 0.18),
+
+              padding: EdgeInsets.symmetric(
+                horizontal: horizontalPadding,
+                vertical: verticalPadding,
+              ),
+
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                BorderRadius.circular(effectiveBorderRadius),
+                side: borderColor != null
+                    ? BorderSide(
+                  color: borderColor!,
+                  width: borderWidth ??
+                      (isWideScreen ? 2.0 : 1.5.w),
+                )
+                    : BorderSide.none,
+              ),
+            ).copyWith(
+              overlayColor: disableSplash
+                  ? MaterialStatePropertyAll(Colors.transparent)
+                  : MaterialStateProperty.resolveWith<Color?>(
+                    (states) {
+                  if (states.contains(MaterialState.hovered)) {
+                    return (backgroundColor ??
+                        AppColors.primaryRed)
+                        .withOpacity(0.1);
+                  }
+                  if (states.contains(MaterialState.pressed)) {
+                    return (backgroundColor ??
+                        AppColors.primaryRed)
+                        .withOpacity(0.2);
+                  }
+                  return null;
+                },
+              ),
+            ),
+            child: buttonContent,
           ),
+        );
+
+        if (!enablePressAnimation) return button;
+
+        return AnimatedScale(
+          scale: isDisabled ? 1.0 : 1.0,
+          duration: const Duration(milliseconds: 120),
+          child: button,
         );
       },
     );

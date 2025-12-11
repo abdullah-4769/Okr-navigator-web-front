@@ -185,7 +185,7 @@ class StrategySelectionScreen extends StatelessWidget {
                         Obx(
                               () => Padding(
                             padding: EdgeInsets.symmetric(
-                              horizontal: screenWidth * 0.12,
+                              horizontal: screenWidth * 0.012,
                             ),
                             child: CustomButton2(
                               text: 'begin_mission'.tr,
@@ -347,7 +347,7 @@ class StrategySelectionScreen extends StatelessWidget {
                       Obx(
                             () => Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: screenWidth * 0.1,
+                            horizontal: screenWidth * 0.003,
                           ),
                           child: CustomButton2(
                             text: 'begin_mission'.tr,

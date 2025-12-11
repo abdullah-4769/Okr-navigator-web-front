@@ -86,6 +86,7 @@ class HomeController extends GetxController {
         Get.toNamed(AppRoutes.gameMode);
         break;
       case 1:
+        Get.toNamed(AppRoutes.joinChallengeScreen);
       // TODO: Add route for Challenge if needed
         break;
       case 2:
